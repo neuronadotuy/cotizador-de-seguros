@@ -5,7 +5,7 @@ import Error from './Error';
 
 const Formulario = () => {
 
-	const { datos, error, setError, handleChangeDatos } = useCotizador();
+	const { datos, error, setError, handleChangeDatos, cotizarSeguro } = useCotizador();
 
 	const handleSubmit = e => {
 		e.preventDefault();
@@ -17,6 +17,7 @@ const Formulario = () => {
 			return;
 		}
 		error && setError('');
+		cotizarSeguro(datos);
 	};
 
 	return ( 
@@ -65,12 +66,13 @@ const Formulario = () => {
 						{PLANES.map(plan => {
 							return(
 								<Fragment key={plan.id}>
-									<label htmlFor="">{plan.nombre}</label>
+									<label htmlFor={plan.id} className="cursor-pointer">{plan.nombre}</label>
 									<input 
 										type="radio" 
 										name="plan" 
+										id={plan.id} 
 										value={plan.id} 
-										className="mt-1 mr-10"
+										className="mt-1 mr-10 cursor-pointer"
 										onChange={e => handleChangeDatos(e)}
 									/>
 								</Fragment>
