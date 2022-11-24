@@ -12,6 +12,8 @@ const CotizadorProvider = ({ children }) => {
 	});
 
 	const [error, setError] = useState('')
+	const [resultadoFinal, setResultadoFinal] = useState(0);
+	const [loading, setLoading] = useState(false);
 
 	const handleChangeDatos = e => {
 		setDatos({
@@ -34,6 +36,12 @@ const CotizadorProvider = ({ children }) => {
 		resultado *= calcularPlan(datos.plan)
 		// En caso de existir muchos digitos luego de la coma (1790.3999999...) lo quitamos:
 		resultado = formatearResultado(resultado);
+		setLoading(true);
+		setTimeout(() => {
+			setResultadoFinal(resultado);
+			setLoading(false);
+			console.log('here');
+		}, 2000);
 	};
 
 	return(
@@ -42,6 +50,8 @@ const CotizadorProvider = ({ children }) => {
 				datos,
 				error,
 				setError,
+				resultadoFinal,
+				loading,
 				handleChangeDatos,
 				cotizarSeguro
 			}}
